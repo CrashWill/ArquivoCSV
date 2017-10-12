@@ -7,7 +7,7 @@ namespace ArquivoCSV
     {
         static void Main(string[] args)
      {
-            
+            Console.Clear();
             string nome, email;
             int idade;
             Console.WriteLine("Digite o seu nome: ");
@@ -19,16 +19,23 @@ namespace ArquivoCSV
             Console.WriteLine("Digite sua idade:");
             idade = Int16.Parse(Console.ReadLine());
 
-            StreamWriter arquivo = new StreamWriter("dados.csv",true);
+            FileInfo fi = new FileInfo("dados_cabecalho.csv");
+            
+            StreamWriter arquivo;
+            
+            if(fi.Exists){
+            arquivo = new StreamWriter("dados_cabecalho.csv",true);
             arquivo.WriteLine(nome+";"+email+";"+idade+";"+DateTime.Now.ToShortDateString());
+            }
+            else{
+            arquivo = new StreamWriter("dados_cabecalho.csv",true);
+            arquivo.WriteLine("Nome;Email;Idade;Data de Cadastro");
+            arquivo.WriteLine(nome+";"+email+";"+idade+";"+DateTime.Now.ToShortDateString());
+            }
+            
             arquivo.Close();
 
-
-
-
-
-
-
+            
        
         }
     }
